@@ -8,7 +8,7 @@ To ensure a smooth data preparation process, please follow these steps carefully
 
 Ensure that you have the `create_nano.py` script ready for execution. You can find the script in the provided repository or download it directly from the given link.
 
-### ***[[Download the folders k400, k600, and k700:](https://github.com/BHI-Research/nano-datasets/tree/main/k400)*** 
+### ***[[Download the folders k400, k600, and k700:]](https://github.com/BHI-Research/nano-datasets/tree/main/k400)*** 
 
 Obtain the `k400, k600, and k700 folders`, which contain the necessary datasets. Make sure these folders are correctly named and contain all the required data files.
 
