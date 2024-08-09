@@ -21,12 +21,12 @@ Organize your working directory by placing the create_nano.py script and the k40
 Execute the create_nano.py script `python create_nano.py`. During execution, the script will prompt you with three questions:
 
 
-`. Directory where you want to save the videos (if you want to use this same directory press enter): "C:\Users\nano-dataset\Nueva-carpeta"
+`- Directory where you want to save the videos (if you want to use this same directory press enter): "C:\Users\nano-dataset\Nueva-carpeta"
 `
 
-`. Name of .csv file: train.csv`
+`- Name of .csv file: train.csv`
 
-`. Number of videos per class: 1`
+`- Number of videos per class: 1`
 
 
 Make sure to provide accurate and complete responses to these prompts to ensure successful execution.
