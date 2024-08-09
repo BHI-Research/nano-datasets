@@ -1,6 +1,6 @@
 # nano-datasets
 
-## create-nano
+## create_nano
 
 To ensure a smooth data preparation process, please follow these steps carefully:
 
@@ -18,7 +18,7 @@ Organize your working directory by placing the create_nano.py script and the k40
 
 ***Run the create_nano.py script:***
 
-Execute the create_nano.py script `python create-nano.py`. During execution, the script will prompt you with three questions:
+Execute the create_nano.py script `python create_nano.py`. During execution, the script will prompt you with three questions:
 
 
 `. Directory where you want to save the videos (if you want to use this same directory press enter): "C:\Users\nano-dataset\Nueva-carpeta"
