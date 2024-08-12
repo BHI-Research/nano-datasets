@@ -1,5 +1,25 @@
 # nano-datasets
 
+## mini-imagenet
+
+To create a reduced version of imagenet1k, start downloading it in your local pc. Download it from [here](https://www.image-net.org/download.php) (required to register in website).
+
+After that, run script gen_nano_imagenet.py in mini-imagetnet folder, with this parameters:
+```
+usage: gen_nano_imagenet.py [-h] --src SRC [--dest DEST] --n N [--class_fp CLASS_FP]
+
+Copy random files and generate class files.
+
+options:
+  -h, --help           show this help message and exit
+  --src SRC            Source directory to copy files from
+  --dest DEST          Destination directory to copy files to
+  --n N                Number of files to copy per folder
+  --class_fp CLASS_FP  Path to the class associated file
+```
+
+Script will save minimal dataset in destination folder.
+
 ## create_nano
 
 To ensure a smooth data preparation process, please follow these steps carefully:
@@ -30,3 +50,26 @@ Execute the create_nano.py script `python create_nano.py`. During execution, the
 
 
 Make sure to provide accurate and complete responses to these prompts to ensure successful execution.
+
+## ssv2
+
+To create a minimal dataset from ssv2 original dataset, start downloading ssv2 in your local pc. You can download it from 
+[here](https://developer.qualcomm.com/software/ai-datasets/something-something).
+
+After it, run refer_by_classes.py in ssv2 folder, with this parameters:
+
+```
+usage: refer_by_classes.py [-h] [--src SRC] [--dest DEST] [--n N] [--videos_src VIDEOS_SRC]
+
+Copy random files and generate class files.
+
+options:
+  -h, --help            show this help message and exit
+  --src SRC             Source directory to get answers file from
+  --dest DEST           Destination directory to create json file
+  --n N                 Number of videos to take from each class
+  --videos_src VIDEOS_SRC
+                        Destination directory of videos
+```
+
+Script will save minimal dataset in destination folder.
