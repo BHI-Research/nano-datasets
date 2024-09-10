@@ -89,7 +89,7 @@ Directory where you want to save the videos (if you want to use this same direct
 Name of .csv file: my-dataset.csv
 Number of videos per class: 5
 An error has occurred: [Errno 2] No such file or directory: 'my-dataset.csv'
-(nano-datasets) 
+(nano-datasets)
 ```
 
 To ensure a smooth data preparation process, please follow these steps carefully:
@@ -119,12 +119,36 @@ Execute the create_nano.py script `python create_nano.py`. During execution, the
 
 Make sure to provide accurate and complete responses to these prompts to ensure successful execution.
 
-## Videos: nano-ssv2 (Something-to-Something v2)
+### Videos: nano-ssv2 (Something-to-Something v2)
 
-To create a minimal dataset from ssv2 original dataset, start downloading ssv2 on your local pc. You can download it from [here](https://www.qualcomm.com/developer/software/something-something-v-2-dataset/downloads).
+Something-Something-v2 is a dataset specifically designed for interactive action recognition, where emphasis is placed on human interactions with everyday objects. It contains over 220,000 short videos divided into 174 action classes, such as “Push something up” or “Move something to the right”. This dataset is particularly valuable for research into complex interaction modelling and has been used to explore learning approaches beyond the classification of simple actions.
 
-After it, run refer_by_classes.py in ssv2 folder, with this parameters:
+To create a minimal dataset from ssv2 original dataset, start downloading ssv2 on your local pc. You can download it from [here](https://www.qualcomm.com/developer/software/something-something-v-2-dataset/downloads). From downloaded dataset, we define a parameter 'n', which is the number of videos to take from each class. After run script, it will create a CSV file, with each file complete path, and the class name. To create that file script **does not use videos downloaded path**. It uses relative path, obtained from ssv2 answers file. It you want a final model dataset file, you can use 'videos_src' parameter. With it, you give script downloaded videos path, and dataset CSV is created use them instead of relative paths.
 
+#### Requirements
+ - json
+ - os
+ - argparse
+
+NOTE: No dependencies installation required.
+
+#### How to run
+
+To run 'refer_by_classes.py' in ssv2 folder, this parameters are required:
+ - src:
+   - type: directory, string. Directory where to locate ssv2 answers file. [REQUIRED].
+ - dest:
+   - type: directory, string. Directory where to save ssv2 generated dataset. [NOT REQUIRED].
+ - n:
+   - type: number. Number of files from each class to copy to new dataset file. [REQUIRED].
+ - videos_src:
+   - type: string. Downloaded videos folder path to complete CSV file with absolute path. [NOT REQUIRED].
+
+Input
+```bash
+python refer_by_classes.py --help
+```
+Output
 ```bash
 usage: refer_by_classes.py [-h] [--src SRC] [--dest DEST] [--n N] [--videos_src VIDEOS_SRC]
 
