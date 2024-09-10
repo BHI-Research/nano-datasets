@@ -14,15 +14,43 @@ Create custom subsets of big public datasets. A complement of [nano-datasets](ht
 
 ### Images: mini-imagenet
 
-To create a reduced version of imagenet1k, start downloading it in your local pc. Download it from [here](https://www.image-net.org/download.php) (required to register in website).
+To create a reduced version of ImageNet-1k, start downloading it in your local pc. Download it from [here](https://www.kaggle.com/datasets/ifigotin/imagenetmini-1000) (required to register in website first). From downloaded dataset, we define a parameter 'n', which is the number
+of images to take from each class. After run script, it will create a folder for each class on a destination directory, and save 'n' images
+from each class in them. Finally, script will create a CSV file, with each file complete path, and the class name. If it is required, another
+parameter 'class_fp' could be use, to associate each class name with an index. In that case, final CSV will contain each file complete path,
+with class index.
 
-After that, run script gen_nano_imagenet.py in mini-imagetnet folder, with this parameters:
+## Requirements
+ - os
+ - shutil
+ - random
+ - argparse
 
+No dependencies installation required.
+
+## How to run
+
+To run script 'gen_nano_imagenet.py' in mini-imagenet folder, this parameters are required:
+
+ - src:
+   - type: directory, string. Directory where to locate ImageNet-1k downloaded dataset. [REQUIRED].
+ - dest:
+   - type: directory, string. Directory where to save mini-ImageNet-1k generated dataset. [NOT REQUIRED].
+ - n:
+   - type: number. Number of files from each class to copy to new dataset destination folder. [REQUIRED].
+ - class_fp:
+   - type: string. File path to associate each class name with an index. [NOT REQUIRED].
+
+### Example
+
+This are some uses examples.
+
+Input
 ```bash
-# empty arguments
-(nano-datasets) python .\gen_nano_imagenet.py
-  gen_nano_imagenet.py: error: the following arguments are required: --src, --n
-
+python gen_nano_imagenet.py --help
+```
+Output
+```bash
 usage: gen_nano_imagenet.py [-h] --src SRC [--dest DEST] --n N [--class_fp CLASS_FP]
 Copy random files and generate class files.
 
@@ -34,7 +62,24 @@ options:
   --class_fp CLASS_FP  Path to the class associated file
 ```
 
-Script will save  a custom  dataset in the destination folder.
+Input
+```bash
+python gen_nano_imagenet.py --src
+```
+Output
+```bash
+usage: gen_nano_imagenet.py [-h] --src SRC [--dest DEST] --n N [--class_fp CLASS_FP]
+Copy random files and generate class files.
+
+options:
+  -h, --help           show this help message and exit
+  --src SRC            Source directory to copy files from
+  --dest DEST          Destination directory to copy files to
+  --n N                Number of files to copy per folder
+  --class_fp CLASS_FP  Path to the class associated file
+```
+
+Script will save a custom dataset in the destination folder.
 
 ## Videos
 
