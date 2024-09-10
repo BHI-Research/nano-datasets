@@ -10,9 +10,9 @@ Create custom subsets of big public datasets. A complement of [nano-datasets](ht
 (nano-datasets) pip install -r requirements.txt
 ```
 
-## Run
-
 ### Images: mini-imagenet
+
+ImageNet-1K is one of the most influential datasets in the development of deep learning. It contains 1.28 million images organized into 1,000 different classes, and has historically been used to train and evaluate image classification models. Although ImageNet is primarily a static image dataset, its influence extends to learning video representations, as many pre-trained models on ImageNet have been adapted and used as a basis for video tasks.
 
 To create a reduced version of ImageNet-1k, start downloading it in your local pc. Download it from [here](https://www.kaggle.com/datasets/ifigotin/imagenetmini-1000) (required to register in website first). From downloaded dataset, we define a parameter 'n', which is the number
 of images to take from each class. After run script, it will create a folder for each class on a destination directory, and save 'n' images
@@ -20,15 +20,15 @@ from each class in them. Finally, script will create a CSV file, with each file 
 parameter 'class_fp' could be use, to associate each class name with an index. In that case, final CSV will contain each file complete path,
 with class index.
 
-## Requirements
+#### Requirements
  - os
  - shutil
  - random
  - argparse
 
-No dependencies installation required.
+NOTE: No dependencies installation required.
 
-## How to run
+#### How to run
 
 To run script 'gen_nano_imagenet.py' in mini-imagenet folder, this parameters are required:
 
@@ -41,7 +41,7 @@ To run script 'gen_nano_imagenet.py' in mini-imagenet folder, this parameters ar
  - class_fp:
    - type: string. File path to associate each class name with an index. [NOT REQUIRED].
 
-### Example
+#### Examples
 
 This are some uses examples.
 
@@ -81,7 +81,7 @@ options:
 
 Script will save a custom dataset in the destination folder.
 
-## Videos
+### Videos: nano-kinetics
 
 ```bash
 (nano-datasets)  python create_nano.py
@@ -119,9 +119,9 @@ Execute the create_nano.py script `python create_nano.py`. During execution, the
 
 Make sure to provide accurate and complete responses to these prompts to ensure successful execution.
 
-## ssv2
+## Videos: nano-ssv2 (Something-to-Something v2)
 
-To create a minimal dataset from ssv2 original dataset, start downloading ssv2 on your local pc. You can download it from [here](https://developer.qualcomm.com/software/ai-datasets/something-something).
+To create a minimal dataset from ssv2 original dataset, start downloading ssv2 on your local pc. You can download it from [here](https://www.qualcomm.com/developer/software/something-something-v-2-dataset/downloads).
 
 After it, run refer_by_classes.py in ssv2 folder, with this parameters:
 
