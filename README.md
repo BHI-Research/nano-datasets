@@ -64,19 +64,19 @@ options:
 
 Input
 ```bash
-python gen_nano_imagenet.py --src
+python .\gen_nano_imagenet.py --src .\imagenet-mini\ --dest . --n 2
 ```
 Output
 ```bash
-usage: gen_nano_imagenet.py [-h] --src SRC [--dest DEST] --n N [--class_fp CLASS_FP]
-Copy random files and generate class files.
-
-options:
-  -h, --help           show this help message and exit
-  --src SRC            Source directory to copy files from
-  --dest DEST          Destination directory to copy files to
-  --n N                Number of files to copy per folder
-  --class_fp CLASS_FP  Path to the class associated file
+Copied: .\imagenet-mini\train\n01440764\n01440764_1775.JPEG -> ./imagenetmini/images/n01440764\n01440764_1775.JPEG
+Copied: .\imagenet-mini\train\n01440764\n01440764_10845.JPEG -> ./imagenetmini/images/n01440764\n01440764_10845.JPEG
+Copied: .\imagenet-mini\train\n01443537\n01443537_19366.JPEG -> ./imagenetmini/images/n01443537\n01443537_19366.JPEG
+Copied: .\imagenet-mini\train\n01443537\n01443537_18160.JPEG -> ./imagenetmini/images/n01443537\n01443537_18160.JPEG
+Copied: .\imagenet-mini\train\n01484850\n01484850_6892.JPEG -> ./imagenetmini/images/n01484850\n01484850_6892.JPEG
+Copied: .\imagenet-mini\train\n01484850\n01484850_1199.JPEG -> ./imagenetmini/images/n01484850\n01484850_1199.JPEG
+Copied: .\imagenet-mini\train\n01491361\n01491361_2919.JPEG -> ./imagenetmini/images/n01491361\n01491361_2919.JPEG
+Copied: .\imagenet-mini\train\n01491361\n01491361_3383.JPEG -> ./imagenetmini/images/n01491361\n01491361_3383.JPEG
+...
 ```
 
 Script will save a custom dataset in the destination folder.
