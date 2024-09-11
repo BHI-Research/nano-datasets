@@ -83,22 +83,16 @@ Script will save a custom dataset in the destination folder.
 
 ### Videos: nano-kinetics
 
-```bash
-(nano-datasets)  python create_nano.py
-Directory where you want to save the videos (if you want to use this same directory press enter): 
-Name of .csv file: my-dataset.csv
-Number of videos per class: 5
-An error has occurred: [Errno 2] No such file or directory: 'my-dataset.csv'
-(nano-datasets)
-```
+Kinetics is a series of video datasets that have been instrumental in action recognition research. Kinetics-400 was the first release, which includes approximately 400 classes of human actions, with 400-1150 videos per class, captured from YouTube videos. Later versions, Kinetics-600 and Kinetics-700, expanded the number of classes and videos, reaching up to 700 classes in the latest release.
+
 
 To ensure a smooth data preparation process, please follow these steps carefully:
 
-***[Download the create_nano.py script:](https://github.com/BHI-Research/nano-datasets/blob/main/create_nano.py)***
+***the create_nano.py script:***
 
-Ensure that you have the `create_nano.py` script ready for execution. You can find the script in the provided repository or download it directly from the given link.
+Ensure that you have the `create_nano.py` script ready for execution.
 
-### ***[[Download the folders k400, k600, and k700:]](https://github.com/BHI-Research/nano-datasets/tree/main/k400)***
+### ***the folders k400, k600, and k700:***
 
 Obtain the `k400, k600, and k700 folders`, which contain the necessary datasets. Make sure these folders are correctly named and contain all the required data files.
 
@@ -118,6 +112,13 @@ Execute the create_nano.py script `python create_nano.py`. During execution, the
 `- Number of videos per class: 1`
 
 Make sure to provide accurate and complete responses to these prompts to ensure successful execution.
+
+```bash
+(nano-datasets)  python create_nano.py
+Directory where you want to save the videos (if you want to use this same directory press enter): 
+Name of .csv file: my-dataset.csv
+Number of videos per class: 5
+```
 
 ### Videos: nano-ssv2 (Something-to-Something v2)
 
