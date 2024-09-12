@@ -72,10 +72,6 @@ Copied: .\imagenet-mini\train\n01440764\n01440764_1775.JPEG -> ./imagenetmini/im
 Copied: .\imagenet-mini\train\n01440764\n01440764_10845.JPEG -> ./imagenetmini/images/n01440764\n01440764_10845.JPEG
 Copied: .\imagenet-mini\train\n01443537\n01443537_19366.JPEG -> ./imagenetmini/images/n01443537\n01443537_19366.JPEG
 Copied: .\imagenet-mini\train\n01443537\n01443537_18160.JPEG -> ./imagenetmini/images/n01443537\n01443537_18160.JPEG
-Copied: .\imagenet-mini\train\n01484850\n01484850_6892.JPEG -> ./imagenetmini/images/n01484850\n01484850_6892.JPEG
-Copied: .\imagenet-mini\train\n01484850\n01484850_1199.JPEG -> ./imagenetmini/images/n01484850\n01484850_1199.JPEG
-Copied: .\imagenet-mini\train\n01491361\n01491361_2919.JPEG -> ./imagenetmini/images/n01491361\n01491361_2919.JPEG
-Copied: .\imagenet-mini\train\n01491361\n01491361_3383.JPEG -> ./imagenetmini/images/n01491361\n01491361_3383.JPEG
 ...
 ```
 
@@ -123,7 +119,7 @@ Make sure to provide accurate and complete responses to these prompts to ensure 
 
 Something-Something-v2 is a dataset specifically designed for interactive action recognition, where emphasis is placed on human interactions with everyday objects. It contains over 220,000 short videos divided into 174 action classes, such as “Push something up” or “Move something to the right”. This dataset is particularly valuable for research into complex interaction modelling and has been used to explore learning approaches beyond the classification of simple actions.
 
-To create a minimal dataset from ssv2 original dataset, start downloading ssv2 on your local pc. You can download it from [here](https://www.qualcomm.com/developer/software/something-something-v-2-dataset/downloads). From downloaded dataset, we define a parameter 'n', which is the number of videos to take from each class. After run script, it will create a CSV file, with each file complete path, and the class name. To create that file script **does not use videos downloaded path**. It uses relative path, obtained from ssv2 answers file. It you want a final model dataset file, you can use 'videos_src' parameter. With it, you give script downloaded videos path, and dataset CSV is created use them instead of relative paths.
+To create a minimal dataset from ssv2 original dataset, start downloading ssv2 on your local pc. You can download it from [here](https://www.qualcomm.com/developer/software/something-something-v-2-dataset/downloads). From downloaded dataset, we define a parameter 'n', which is the number of videos to take from each class. After run script, it will create a CSV file, with each file complete path, and the class name. To create that file script **does not use videos downloaded path**. It uses relative path, obtained from ssv2 answers file. It you want a final model dataset file, you can use 'videos_src' parameter. With it, you give script downloaded videos path, and dataset CSV is created using them instead of relative paths.
 
 #### Requirements
  - json
@@ -142,7 +138,7 @@ To run 'refer_by_classes.py' in ssv2 folder, this parameters are required:
  - n:
    - type: number. Number of files from each class to copy to new dataset file. [REQUIRED].
  - videos_src:
-   - type: string. Downloaded videos folder path to complete CSV file with absolute path. [NOT REQUIRED].
+   - type: directory, string. Downloaded videos folder path to complete CSV file with absolute path. [NOT REQUIRED].
 
 Input
 ```bash
@@ -161,6 +157,31 @@ options:
   --n N                 Number of videos to take from each class
   --videos_src VIDEOS_SRC
                         Destination directory of videos
+```
+Input
+```bash
+python .\refer_by_classes.py --src .\labels\test-answers.csv --dest . --n 2 --label
+s_src .\labels\labels.json
+```
+Output
+```bash
+208583.webm 42
+186174.webm 42
+50058.webm 144
+150115.webm 144
+...
+```
+Input
+```bash
+python .\refer_by_classes.py --src .\labels\test-answers.csv --dest . --n 2 --label
+s_src .\labels\labels.json --videos_src "...\dataset-20bn\20bn\20bn-something-something-v2"
+```
+Output
+```bash
+...\dataset-20bn\20bn\20bn-something-something-v2\208583.webm 42
+...\dataset-20bn\20bn\20bn-something-something-v2\186174.webm 42
+...\dataset-20bn\20bn\20bn-something-something-v2\50058.webm 144
+...\dataset-20bn\20bn\20bn-something-something-v2\150115.webm 144
 ```
 
 Script will save a custom dataset in the destination folder.
