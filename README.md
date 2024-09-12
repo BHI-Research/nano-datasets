@@ -138,6 +138,8 @@ To run 'refer_by_classes.py' in ssv2 folder, this parameters are required:
    - type: directory, string. Directory where to save ssv2 generated dataset. [NOT REQUIRED].
  - n:
    - type: number. Number of files from each class to copy to new dataset file. [REQUIRED].
+ - labels_src:
+   - type: directory, string. Path to labels.json file. [REQUIRED].
  - videos_src:
    - type: directory, string. Downloaded videos folder path to complete CSV file with absolute path. [NOT REQUIRED].
 
@@ -147,17 +149,19 @@ python refer_by_classes.py --help
 ```
 Output
 ```bash
-usage: refer_by_classes.py [-h] [--src SRC] [--dest DEST] [--n N] [--videos_src VIDEOS_SRC]
+usage: refer_by_classes.py [-h] --src SRC [--dest DEST] --n N --labels_src LABELS_SRC [--videos_src VIDEOS_SRC]
 
 Copy random files and generate class files.
 
 options:
-  -h, --help            show this help message and exit
-  --src SRC             Source directory to get answers file from
-  --dest DEST           Destination directory to create json file
-  --n N                 Number of videos to take from each class
-  --videos_src VIDEOS_SRC
-                        Destination directory of videos
+  -h, --help            show this help message and exit
+  --src SRC             Source directory to get answers file from
+  --dest DEST           Destination directory to create json file
+  --n N                 Number of videos to take from each class
+  --labels_src LABELS_SRC
+                        Destination directory of labels file
+  --videos_src VIDEOS_SRC
+                        Destination directory of videos
 ```
 Input
 ```bash
