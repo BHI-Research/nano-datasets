@@ -46,7 +46,9 @@ def gen_csv_of_n_video_for_class(class_dict, n):
 
     return csv_content
 
-def convert_csv_to_model_file(csv_file, videos_dest, labels):
+def convert_csv_to_model_file(csv_file, labels_file, videos_dest=None):
+    labels_file = json.load(open(labels_file, "r"))
+
     new_csv_content = ""
     for line in csv_file.split("\n"):
         line = line.rstrip("\n")
@@ -56,18 +58,28 @@ def convert_csv_to_model_file(csv_file, videos_dest, labels):
             classname = line[1]
         except:
             pass
-            # Not importante, maybe last line \n or something else
+            # last line \n
 
-        class_id = labels[classname]
-        new_csv_content += f"{os.path.join(videos_dest, id)}.webp{OWN_CSV_SEPARATOR}{class_id}\n"
+        if len(id) == 0:
+            continue
+            # cases of blank ids
 
+        class_id = labels_file[classname]
+        if videos_dest != None:
+            new_line = f"{os.path.join(videos_dest, id)}.webm{OWN_CSV_SEPARATOR}{class_id}"
+        else:
+            new_line = f"{id}.webm{OWN_CSV_SEPARATOR}{class_id}"
+
+        print(new_line)
+        new_csv_content += new_line + "\n"
     return new_csv_content
 
 def main():
     parser = argparse.ArgumentParser(description='Copy random files and generate class files.')
-    parser.add_argument('--src', type=str, help='Source directory to get answers file from', required=False)
+    parser.add_argument('--src', type=str, help='Source directory to get answers file from', required=True)
     parser.add_argument('--dest', type=str, help='Destination directory to create json file', required=False)
-    parser.add_argument('--n', type=int, help='Number of videos to take from each class', required=False)
+    parser.add_argument('--n', type=int, help='Number of videos to take from each class', required=True)
+    parser.add_argument('--labels_src', type=str, help='Destination directory of labels file', required=True)
     parser.add_argument('--videos_src', type=str, help='Destination directory of videos', required=False)
 
     args = parser.parse_args()
@@ -91,23 +103,24 @@ def main():
     if args.n:
         csv_content = gen_csv_of_n_video_for_class(class_dict, args.n)
 
+    if args.labels_src:
+        labels_file = args.labels_src
+    else:
+        labels_file = "labels.json"
+
+    labels = json.load(open(labels_file, "r"))
+
     if args.videos_src:
         # If we have source video directory, we can convert csv file
         # to a useful model file, adding absolute directory for each video
-        if args.src:
-            labels_file = os.path.join(args.src, "labels.json")
-        else:
-            labels_file = "labels.json"
-
-        labels = json.load(open(labels_file, "r"))
-        csv_content = convert_csv_to_model_file(csv_content, args.videos_src, labels)
-
-        # After, save csv file
-        with open("class_dict.csv", "w") as csv_file:
-            csv_file.write(csv_content)
+        csv_content = convert_csv_to_model_file(csv_content, labels_file, args.videos_src)
     else:
         print("To create model dataset src file, use videos_src command argument to locate dataset videos.")
 
+    # After, save csv file
+    with open("class_dict.csv", "w") as csv_file:
+        csv_content = convert_csv_to_model_file(csv_content, labels_file)
+        csv_file.write(csv_content)
 
 if __name__ == '__main__':
     main()
