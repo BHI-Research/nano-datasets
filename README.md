@@ -136,16 +136,32 @@ NOTE: No dependencies installation required.
 #### How to run
 
 To run 'refer_by_classes.py' in ssv2 folder, this parameters are required:
- - src:
-   - type: directory, string. Directory where to locate ssv2 answers file. [REQUIRED].
- - dest:
-   - type: directory, string. Directory where to save ssv2 generated dataset. [NOT REQUIRED].
- - n:
-   - type: number. Number of files from each class to copy to new dataset file. [REQUIRED].
- - labels_src:
-   - type: directory, string. Path to labels.json file. [REQUIRED].
- - videos_src:
-   - type: directory, string. Downloaded videos folder path to complete CSV file with absolute path. [NOT REQUIRED].
+1. **`--src`**  
+   - Type: String (directory path)  
+   - Description: The source directory where the SSV2 answers file (`test-answers.csv`) is located.  
+   - Example: `--src ./labels/test-answers.csv`
+
+2. **`--n`**  
+   - Type: Integer  
+   - Description: The number of videos to take from each class. This will limit the number of videos copied for each class in the dataset.  
+   - Example: `--n 5`
+
+3. **`--labels_src`**  
+   - Type: String (directory path)  
+   - Description: Path to the `labels.json` file, which contains the mappings between class names and class IDs.  
+   - Example: `--labels_src ./labels/labels.json`
+
+#### Optional Parameters:
+
+1. **`--dest`**  
+   - Type: String (directory path)  
+   - Description: The destination directory where the new dataset will be saved. If this parameter is not provided, the dataset will be saved in the current working directory.  
+   - Example: `--dest ./my-dataset/`
+
+2. **`--videos_src`**  
+   - Type: String (directory path)  
+   - Description: The directory containing the downloaded SSV2 videos. If this parameter is provided, the script will generate a CSV file with the absolute paths to the videos. If not provided, the script will create a CSV file with relative paths from the SSV2 answers file.  
+   - Example: `--videos_src /path/to/downloaded/videos/`
 
 Input
 ```bash
