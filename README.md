@@ -10,72 +10,79 @@ Create custom subsets of big public datasets. A complement of [nano-datasets](ht
 (nano-datasets) pip install -r requirements.txt
 ```
 
-### Images: mini-imagenet
+### Images: mini-ImageNet
 
-ImageNet-1K is one of the most influential datasets in the development of deep learning. It contains 1.28 million images organized into 1,000 different classes, and has historically been used to train and evaluate image classification models. Although ImageNet is primarily a static image dataset, its influence extends to learning video representations, as many pre-trained models on ImageNet have been adapted and used as a basis for video tasks.
+ImageNet-1K is one of the most influential datasets in the development of deep learning. It contains 1.28 million images organized into 1,000 different classes and has historically been used to train and evaluate image classification models. Although ImageNet is primarily a static image dataset, its influence extends to learning video representations, as many pre-trained models on ImageNet have been adapted and used as a basis for video tasks.
 
-To create a reduced version of ImageNet-1k, start downloading it in your local pc. Download it from [here](https://www.kaggle.com/datasets/ifigotin/imagenetmini-1000) (required to register in website first). From downloaded dataset, we define a parameter 'n', which is the number
-of images to take from each class. After run script, it will create a folder for each class on a destination directory, and save 'n' images
-from each class in them. Finally, script will create a CSV file, with each file complete path, and the class name. If it is required, another
-parameter 'class_fp' could be use, to associate each class name with an index. In that case, final CSV will contain each file complete path,
-with class index.
+To create a reduced version of ImageNet-1K, start by downloading it to your local PC. You can download it from here (registration required). Once downloaded, this script will allow you to create a mini-dataset by selecting a number of images (images) from a specified number of classes (classes). The images will be copied to a destination folder, organized by class. The script also generates two CSV files: one with the image paths and associated class names, and another mapping the class names to class indices if needed.
 
-#### Requirements
+Requirements
  - os
  - shutil
  - random
  - argparse
-
-NOTE: No dependencies installation required.
+csv
+Note: No additional dependencies need to be installed, as all required modules are part of the Python standard library.
 
 #### How to run
+To run the script gen_nano_imagenet.py, located in the mini-imagenet folder, the following parameters are required:
 
-To run script 'gen_nano_imagenet.py' in mini-imagenet folder, this parameters are required:
+ - --src:
+   - Type: Directory (string). Directory where the ImageNet-1K dataset is located (train or val). [REQUIRED].
+ - --dest:
+   - Type: Directory (string). Directory where the mini-ImageNet-1K dataset and the CSV files will be saved. [REQUIRED].
+ - --classes:
+   - Type: Integer. The number of classes to include in the mini-dataset. [REQUIRED].
+ - --images:
+   - Type: Integer. The number of images to copy from each selected class. If not specified, all images from each selected class will be copied. [OPTIONAL].
+ - --randomly:
+   - Type: String (S/N). Whether to select the classes randomly. Defaults to 'N' (no). [OPTIONAL].
 
- - src:
-   - type: directory, string. Directory where to locate ImageNet-1k downloaded dataset. [REQUIRED].
- - dest:
-   - type: directory, string. Directory where to save mini-ImageNet-1k generated dataset. [NOT REQUIRED].
- - n:
-   - type: number. Number of files from each class to copy to new dataset destination folder. [REQUIRED].
- - class_fp:
-   - type: string. File path to associate each class name with an index. [NOT REQUIRED].
+#### Output
+The script generates two CSV files:
+
+ - image_paths.csv: Contains the complete file paths of the images and the corresponding class names.
+ - class_mapping.csv: Contains the mapping of class indices to class names.
 
 #### Examples
+These are some usage examples:
 
-This are some uses examples.
-
-Input
+Example 1: Help command
 ```bash
+Copiar código
 python gen_nano_imagenet.py --help
 ```
-Output
+Output:
+
 ```bash
-usage: gen_nano_imagenet.py [-h] --src SRC [--dest DEST] --n N [--class_fp CLASS_FP]
+Copiar código
+usage: gen_nano_imagenet.py [-h] --src SRC --dest DEST --classes CLASSES [--images IMAGES] [--randomly {S,N}]
 Copy random files and generate class files.
 
 options:
-  -h, --help           show this help message and exit
-  --src SRC            Source directory to copy files from
-  --dest DEST          Destination directory to copy files to
-  --n N                Number of files to copy per folder
-  --class_fp CLASS_FP  Path to the class associated file
+  -h, --help                                   Show this help message and exit.
+  --src SRC                                    Source directory with train or val images.
+  --dest DEST                                  Destination directory to save the mini-dataset.
+  --classes CLASSES                            Number of classes to select.
+  --images IMAGES                              Number of images to copy per class.
+  --randomly {S,N}                             Randomly select classes (S/N). Defaults to N.
+Example 2: Select specific number of classes and images per class
 ```
+```bash
+Copiar código
+python gen_nano_imagenet.py --src ./imagenet-mini/ --dest ./mini_imagenet/ --classes 10 --images 5 --randomly S
+```
+Output:
 
-Input
 ```bash
-python .\gen_nano_imagenet.py --src .\imagenet-mini\ --dest . --n 2
-```
-Output
-```bash
-Copied: .\imagenet-mini\train\n01440764\n01440764_1775.JPEG -> ./imagenetmini/images/n01440764\n01440764_1775.JPEG
-Copied: .\imagenet-mini\train\n01440764\n01440764_10845.JPEG -> ./imagenetmini/images/n01440764\n01440764_10845.JPEG
-Copied: .\imagenet-mini\train\n01443537\n01443537_19366.JPEG -> ./imagenetmini/images/n01443537\n01443537_19366.JPEG
-Copied: .\imagenet-mini\train\n01443537\n01443537_18160.JPEG -> ./imagenetmini/images/n01443537\n01443537_18160.JPEG
+Copiar código
+Copied: ./imagenet-mini/train/n01440764/n01440764_1775.JPEG -> ./mini_imagenet/n01440764/n01440764_1775.JPEG
+Copied: ./imagenet-mini/train/n01440764/n01440764_10845.JPEG -> ./mini_imagenet/n01440764/n01440764_10845.JPEG
+Copied: ./imagenet-mini/train/n01443537/n01443537_19366.JPEG -> ./mini_imagenet/n01443537/n01443537_19366.JPEG
+Copied: ./imagenet-mini/train/n01443537/n01443537_18160.JPEG -> ./mini_imagenet/n01443537/n01443537_18160.JPEG
 ...
 ```
-
-Script will save a custom dataset in the destination folder.
+This will copy 5 random images from each of 10 randomly selected classes into the destination folder and create the corresponding CSV files. The CSV files will be located in the destination directory.
 
 ### Videos: nano-kinetics
 
