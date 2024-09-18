@@ -21,7 +21,8 @@ Requirements
  - shutil
  - random
  - argparse
-csv
+ - csv
+
 Note: No additional dependencies need to be installed, as all required modules are part of the Python standard library.
 
 #### How to run
