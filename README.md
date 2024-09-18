@@ -50,13 +50,11 @@ These are some usage examples:
 
 Example 1: Help command
 ```bash
-Copiar código
 python gen_nano_imagenet.py --help
 ```
 Output:
 
 ```bash
-Copiar código
 usage: gen_nano_imagenet.py [-h] --src SRC --dest DEST --classes CLASSES [--images IMAGES] [--randomly {S,N}]
 Copy random files and generate class files.
 
@@ -70,13 +68,11 @@ options:
 Example 2: Select specific number of classes and images per class
 ```
 ```bash
-Copiar código
 python gen_nano_imagenet.py --src ./imagenet-mini/ --dest ./mini_imagenet/ --classes 10 --images 5 --randomly S
 ```
 Output:
 
 ```bash
-Copiar código
 Copied: ./imagenet-mini/train/n01440764/n01440764_1775.JPEG -> ./mini_imagenet/n01440764/n01440764_1775.JPEG
 Copied: ./imagenet-mini/train/n01440764/n01440764_10845.JPEG -> ./mini_imagenet/n01440764/n01440764_10845.JPEG
 Copied: ./imagenet-mini/train/n01443537/n01443537_19366.JPEG -> ./mini_imagenet/n01443537/n01443537_19366.JPEG
