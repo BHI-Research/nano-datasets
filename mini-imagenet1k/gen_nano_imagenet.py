@@ -71,9 +71,4 @@ if __name__ == '__main__':
     image_count = args.images
     random_class_selection = (args.randomly == 'S')
 
-    if args.class_associations:
-        class_associated_filepath = args.class_associations
-    else:
-        class_associated_filepath = None
-
     copy_random_files(source_directory, destination_directory, image_count, class_count, random_class_selection)
