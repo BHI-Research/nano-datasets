@@ -40,20 +40,6 @@ def copy_random_files(source_directory, destination_directory, n, class_count, r
 
                 print(f'Copied: {source_file_path} -> {destination_file_path}')
 
-
-def convert_class_associated_file_to_dict(class_associated_filepath):
-    classes = {}
-
-    with open(class_associated_filepath) as file:
-        lines = file.readlines()
-
-    for line in lines:
-        line = line[:-1]  # Remove \n
-        line = line.split("\t")
-        classes[line[0]] = line[1]
-
-    return classes
-
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Copy random files and generate class files.')
     
