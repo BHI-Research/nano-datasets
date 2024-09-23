@@ -6,6 +6,12 @@ import csv
 
 def copy_random_files(source_directory, destination_directory, n, class_count, random_class_selection=False):
     all_classes = [d for d in os.listdir(source_directory) if os.path.isdir(os.path.join(source_directory, d))]
+
+    train_or_val = 'val' if 'val' in source_directory else 'train'
+    os.makedirs(os.path.join(destination_directory, train_or_val), exist_ok=True)
+    # Creates dirs in destination folder
+
+    destination_directory = os.path.join(destination_directory, train_or_val)
     
     if random_class_selection:
         selected_classes = random.sample(all_classes, min(class_count, len(all_classes)))
