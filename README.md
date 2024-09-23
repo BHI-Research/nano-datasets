@@ -64,14 +64,14 @@ options:
 
 Input
 ```bash
-python .\gen_nano_imagenet.py --src .\imagenet-mini\ --dest . --n 2
+python .\gen_nano_imagenet.py --src .\imagenet-mini\train --dest . --n 2
 ```
 Output
 ```bash
-Copied: .\imagenet-mini\train\n01440764\n01440764_1775.JPEG -> ./imagenetmini/images/n01440764\n01440764_1775.JPEG
-Copied: .\imagenet-mini\train\n01440764\n01440764_10845.JPEG -> ./imagenetmini/images/n01440764\n01440764_10845.JPEG
-Copied: .\imagenet-mini\train\n01443537\n01443537_19366.JPEG -> ./imagenetmini/images/n01443537\n01443537_19366.JPEG
-Copied: .\imagenet-mini\train\n01443537\n01443537_18160.JPEG -> ./imagenetmini/images/n01443537\n01443537_18160.JPEG
+Copied: .\imagenet-mini\train\n01440764\n01440764_1775.JPEG -> ./imagenetmini/train/n01440764\n01440764_1775.JPEG
+Copied: .\imagenet-mini\train\n01440764\n01440764_10845.JPEG -> ./imagenetmini/train/n01440764\n01440764_10845.JPEG
+Copied: .\imagenet-mini\train\n01443537\n01443537_19366.JPEG -> ./imagenetmini/train/n01443537\n01443537_19366.JPEG
+Copied: .\imagenet-mini\train\n01443537\n01443537_18160.JPEG -> ./imagenetmini/train/n01443537\n01443537_18160.JPEG
 ...
 ```
 
