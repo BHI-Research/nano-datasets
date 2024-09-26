@@ -78,61 +78,15 @@ Copied: .\imagenet-mini\train\n01443537\n01443537_18160.JPEG -> ./imagenetmini/t
 Script will save a custom dataset in the destination folder.
 
 
-### Videos: nano-kinetics
 
-Kinetics is a series of large-scale datasets commonly used for action recognition in videos. They consist of hundreds of thousands of video clips sourced from YouTube, each labeled with one of hundreds of action classes. These datasets are widely used for training and evaluating video models in the field of deep learning.
+### Videos: nano-kinetics
 
 To create a reduced version of one of these Kinetics datasets, you don't need to download the dataset from external sources or register on any website. Upon downloading or cloning this GitHub repository, you will have access to the necessary folders (k400, k600, k700), each of which contains the following files:
 - train.csv: Contains the video IDs and their corresponding class labels for the training set.
 - val.csv: Contains the video IDs and their corresponding class labels for the validation set.
 - map-k[number]-class.csv: Maps the class labels to their corresponding class indices.
 
-These files are used by the script to select videos for creating the reduced dataset. You can define the parameter num_videos to specify how many videos to take from  class. Once you run the script, it will create a folder in the destination directory and save the specified number of videos. Additionally, the script will generate a CSV file, containing the complete path of each video and the class number. 
-
-
-### Requirements
-- yt-dlp
-- pandas
-- os
-- moviepy
-
-NOTE: No dependencies installation required.
-
-
 ### How to run
-
-To run the script create_nano.py in the nano-dataset folder, use the following parameters:
-
-- save_dir:
-    - type: directory (string).
-    - Description: Directory where the generated nano-dataset will be saved.
-    - [REQUIRED]
-
-- dataset:
-    - Type: string.
-    - Description: Dataset to select videos from (k400 | k600 | k700).
-    - [REQUIRED]
-
-- video_type: 
-    - Type: string
-    - Description: Type of videos to include (train | validation).
-    - [REQUIRED]
-
-- num_classes: 
-    - Type: number (int)
-    - Description: Number of classes to include in the nano-dataset. If not specified, all classes will be included.
-    - [OPTIONAL]
-
-- videos_per_class:
-    - Type: number (int)
-    - Description: Number of videos to include per class. If not specified, all videos for each class will be included.
-    - [OPTIONAL]
-
-
-### Examples
-
-This are some uses examples.
-
 Input
 ```bash
 python create_nano.py --help
@@ -153,6 +107,9 @@ options:
   --videos_per_class VIDEOS_PER_CLASS  Number of videos to include per class
 ```
 
+### Example
+
+In this example, the script copies 10 videos from 5 classes of the Kinetics-400 training dataset and saves them into the nano-datasets/nano-dataset folder. A CSV file with the video paths and class indices is generated in the destination directory.
 
 Input
 ```bash
@@ -180,7 +137,10 @@ Moviepy - video ready /home/user/Desktop/nano-datasets/nano-dataset/abseiling_0.
 Video downloaded and saved in: /home/user/Desktop/nano-datasets/nano-dataset/abseiling_0.mp4
 ...
 ```
-In this example, the script copies 10 videos from 5 classes of the Kinetics-400 training dataset and saves them into the nano-datasets/nano-dataset folder. A CSV file with the video paths and class indices is generated in the destination directory.
+Note: 
+* If you don't enter [num_classes] all classes will be downloaded.
+* If you don't enter [videos_per_class] all videos per class will be downloaded.
+
 
 
 ### Videos: nano-ssv2 (Something-to-Something v2)
