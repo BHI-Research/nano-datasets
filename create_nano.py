@@ -10,14 +10,16 @@ import argparse
 import json
 
 """
-    Crea o actualiza un archivo .csv con las rutas de los videos y sus etiquetas correspondientes.
+Create or update a .csv file with the video paths and their corresponding labels.
 
-    Args:
-    path (str): Ruta del video específico.
-    label (str): Etiqueta específica del video.
-    labels (dict): Diccionario que contiene todas las etiquetas.
-    csv_path (str): Ruta donde se guardará el archivo CSV.
+Args:
+    path (str): Path to the specific video.
+    label (str): Specific label for the video.
+    labels (dict): Dictionary containing all the labels.
+    csv_path (str): Path where the CSV file will be saved.
 """
+
+
 def save_video_paths(path, label, labels, csv_path):
     directory = os.path.dirname(csv_path)
     if not os.path.exists(directory):
@@ -31,11 +33,13 @@ def save_video_paths(path, label, labels, csv_path):
 
     if os.path.exists(csv_path):
         df_existing = pd.read_csv(csv_path, sep=' ', header=None, names=['Video Path', 'class'])
-        df_updated = pd.concat([df_existing, new_df]).drop_duplicates(subset=['Video Path', 'class'], keep='first').reset_index(drop=True)
+        df_updated = pd.concat([df_existing, new_df]).drop_duplicates(subset=['Video Path', 'class'],
+                                                                      keep='first').reset_index(drop=True)
     else:
         df_updated = new_df
 
     df_updated.to_csv(csv_path, sep=' ', header=False, index=False)
+
 
 """
     Creates or updates a JSON file with the provided checkpoint data.
@@ -45,9 +49,11 @@ def save_video_paths(path, label, labels, csv_path):
     path (str): Path where the JSON file will be saved.
 """
 
+
 def checkpoint_creator(checkpoint_data, path):
     with open(path, 'w') as file:
         json.dump(checkpoint_data, file, indent=4)
+
 
 """
     Reads and returns the checkpoint data from a JSON file.
@@ -60,12 +66,14 @@ def checkpoint_creator(checkpoint_data, path):
     None: If the file does not exist.
 """
 
+
 def checkpoint_reader(path):
     if not os.path.exists(path):
         return None
     with open(path, 'r') as file:
         data = json.load(file)
     return data
+
 
 """
     Reads a CSV file and creates a dictionary mapping unique labels to indices.
@@ -76,6 +84,7 @@ def checkpoint_reader(path):
     Returns:
     dict: Dictionary where keys are unique labels from the CSV and values are their corresponding indices.
 """
+
 
 def get_dictionary(csv_name):
     labels = {}
@@ -100,6 +109,7 @@ def get_dictionary(csv_name):
     output_path (str): Path where the video will be saved.
 """
 
+
 def download_youtube_video(url, start_time, end_time, output_path):
     video_path = None
     ydl_opts = {
@@ -111,16 +121,16 @@ def download_youtube_video(url, start_time, end_time, output_path):
             info_dict = ydl.extract_info(url, download=True)
             video_path = ydl.prepare_filename(info_dict)
 
-        # Verifica la duración del video antes de extraer el subclip
         with VideoFileClip(video_path) as video:
             video_duration = video.duration
             if end_time > video_duration:
-                print(f"Error: El tiempo de fin {end_time} excede la duración del video ({video_duration}). Omitiendo video.")
+                print(
+                    f"Error: El tiempo de fin {end_time} excede la duración del video ({video_duration}). Omitiendo video.")
                 return None
 
             output_path = output_path.replace(" ", "-")
-            video_recortado = video.subclip(start_time, end_time)
-            video_recortado.write_videofile(output_path, codec="libx264")
+            video_r = video.subclip(start_time, end_time)
+            video_r.write_videofile(output_path, codec="libx264")
             print(f"Video downloaded and saved in: {output_path}")
             return output_path
     except Exception as e:
@@ -129,6 +139,19 @@ def download_youtube_video(url, start_time, end_time, output_path):
     finally:
         if video_path and os.path.exists(video_path):
             os.remove(video_path)
+
+
+'''
+    Check if a video was downloaded
+
+    Args:
+        output_path_base (str): root path
+        final_label (str): video path
+        count (int): number of video
+
+    Returns: 
+        True or False
+'''
 
 
 def is_video_downloaded(output_path_base, final_label, count):
@@ -141,11 +164,14 @@ def is_video_downloaded(output_path_base, final_label, count):
 
     Args:
     csv_name (str): CSV file from which the video IDs are obtained.
-    n_videos (int): Number of videos per class.
+    n_videos (int): Amount of videos per class.
+    n_class (int): Amount of classes
     directory_path (str): Path where the dataset will be created.
     new_csv_name (str): Name of the output nano CSV file.
 """
-def dataset_creator(csv_name, n_videos, directory_path, new_csv_name):
+
+
+def dataset_creator(csv_name, n_videos, n_class, directory_path, new_csv_name):
     base_url = "https://www.youtube.com/watch?v="
     root = os.path.dirname(os.path.abspath(__file__))
 
@@ -160,8 +186,8 @@ def dataset_creator(csv_name, n_videos, directory_path, new_csv_name):
         os.makedirs(output_path_base)
 
     checkpoint_path = os.path.join(output_path_base, 'checkpoint.json')
-
     checkpoint_data = checkpoint_reader(checkpoint_path)
+
     if checkpoint_data is None:
         checkpoint_data = {
             'current_label': None,
@@ -171,6 +197,9 @@ def dataset_creator(csv_name, n_videos, directory_path, new_csv_name):
 
     labels = get_dictionary(csv_name)
     label_keys = list(labels.keys())
+
+    if n_class is not None:
+        label_keys = label_keys[:n_class]
 
     current_label = checkpoint_data['current_label']
     if current_label is None:
@@ -204,7 +233,7 @@ def dataset_creator(csv_name, n_videos, directory_path, new_csv_name):
                 if count >= n_videos:
                     count = 0
                     next_label_index = label_keys.index(current_label) + 1
-                    if next_label_index >= len(labels):
+                    if next_label_index >= len(label_keys):
                         os.remove(checkpoint_path)
                         print("Dataset download complete.")
                         return
@@ -253,34 +282,32 @@ def dataset_creator(csv_name, n_videos, directory_path, new_csv_name):
 
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description='Copy random files and generate class files.')
-    parser.add_argument('--src', type=str, help='Source file where to take video names', required=False)
-    parser.add_argument('--dest', type=str, help='Destination directory to download files to', required=False)
-    parser.add_argument('--n', type=int, help='Number of files to download per class', required=False)
 
+    parser = argparse.ArgumentParser(description='Generate a nano-dataset from the selected dataset.')
+    parser.add_argument('--save_dir', type=str, help='Directory where the nano-dataset will be saved', required=False)
+    parser.add_argument('--dataset', type=str, choices=['k400', 'k600', 'k700'],
+                        help='Dataset to select videos from (k400 | k600 | k700)', required=False)
+    parser.add_argument('--video_type', type=str, choices=['train', 'val'],
+                        help='Type of videos to include (train | val)', required=False)
+    parser.add_argument('--num_classes', type=int, help='Number of classes to include in the nano-dataset',
+                        required=False)
+    parser.add_argument('--videos_per_class', type=int, help='Number of videos to include per class', required=False)
     args = parser.parse_args()
 
     try:
-        csv_name = ''
-        if args.dest is None:
-            directory_path = input("Directory where you want to save the videos (if you want to use this same directory press enter): ")
-            csv_name = input("Name of .csv file: ")
-        else:
-            directory_path = args.dest
-
-        if args.src != None:
-            csv_name = args.src
-
-        if not args.n:
-            n_fragments = int(input("Number of videos per class: "))
-        else:
-            n_fragments = args.n
+        directory_path = args.save_dir
+        dataset_s = args.dataset
+        video_type = args.video_type
+        n_classes = args.num_classes if args.num_classes is not None else 1000
+        n_videos = args.videos_per_class if args.videos_per_class is not None else 1000
 
         if directory_path != '' and not os.path.exists(directory_path):
             os.makedirs(directory_path)
 
-        new_csv_name = f'nano-{csv_name}'
-        dataset_creator(csv_name, n_fragments, directory_path, new_csv_name)
+        new_csv_name = f'nano-{video_type}.csv'
+
+        directory_csv = os.path.join(dataset_s, video_type + ".csv")
+        dataset_creator(directory_csv, n_videos, n_classes, directory_path, new_csv_name)
 
     except AttributeError:
         print("Wrong data type.")
