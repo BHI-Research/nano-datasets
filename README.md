@@ -115,11 +115,11 @@ options:
 
 ```bash
 (nano-datasets) cd ssv2
-(nano-datasets) python .\refer_by_classes.py --src .\labels\test-answers.csv --dest . --n 2 --label s_src .\labels\labels.json --videos_src "...\dataset-20bn\20bn\20bn-something-something-v2"
-...\dataset-20bn\20bn\20bn-something-something-v2\208583.webm 42
-...\dataset-20bn\20bn\20bn-something-something-v2\186174.webm 42
-...\dataset-20bn\20bn\20bn-something-something-v2\50058.webm 144
-...\dataset-20bn\20bn\20bn-something-something-v2\150115.webm 144
+(nano-datasets) python .\refer_by_classes.py --src .\labels\test-answers.csv --dest . --n 2 --label s_src .\labels\labels.json --videos_src "...\dataset-20bn\20bn\20bn-something-something-v2\train"
+...\dataset-20bn\20bn\20bn-something-something-v2\train\208583.webm 42
+...\dataset-20bn\20bn\20bn-something-something-v2\train\186174.webm 42
+...\dataset-20bn\20bn\20bn-something-something-v2\train\50058.webm 144
+...\dataset-20bn\20bn\20bn-something-something-v2\train\150115.webm 144
 ```
 
 Script will save a custom dataset in the destination folder.
