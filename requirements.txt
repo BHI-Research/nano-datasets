@@ -1,4 +1,4 @@
 pytube
-moviepy
+moviepy==1.0.3
 pandas
 yt-dlp
