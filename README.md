@@ -30,7 +30,7 @@ To create a reduced version of one of these Kinetics datasets, you don't need to
 
 ```bash
 (nano-datasets) python create_nano.py --help
-usage: create_nano.py [-h] --save_dir SAVE_DIR --dataset {k400,k600,k700} --video_type {train,val} [--num_classes NUM_CLASSES] [--videos_per_class VIDEOS_PER_CLASS]
+usage: create_nano.py [-h] --save_dir SAVE_DIR --dataset {k400,k600,k700} --video_type {train,val} [--num_classes NUM_CLASSES] [--videos_per_class VIDEOS_PER_CLASS] [--cookies COOKIES_FILE]
 
 Generate a nano-dataset from the selected dataset.
 
@@ -40,7 +40,8 @@ options:
   --dataset {k400,k600,k700}   Dataset to select videos from (k400 | k600 | k700)
   --video_type {train,val}     Type of videos to include (train | val)
   --num_classes NUM_CLASSES    Number of classes to include in the nano-dataset
-  --videos_per_class VIDEOS_PER_CLASS  Number of videos to include per class
+  --videos_per_class VIDEOS_PER_CLASS   Number of videos to include per class
+  --cookies COOKIES_FILE   File with cookies from youtube
 ```
 
 #### Example
