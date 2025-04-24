@@ -110,12 +110,14 @@ def get_dictionary(csv_name):
 """
 
 
-def download_youtube_video(url, start_time, end_time, output_path):
+def download_youtube_video(url, start_time, end_time, output_path, cookies=None):
     video_path = None
     ydl_opts = {
         'format': 'best',
         'outtmpl': '%(id)s.%(ext)s',
     }
+    if cookies is not None:
+        ydl_opts['cookies'] = cookies
     try:
         with YoutubeDL(ydl_opts) as ydl:
             info_dict = ydl.extract_info(url, download=True)
@@ -171,7 +173,7 @@ def is_video_downloaded(output_path_base, final_label, count):
 """
 
 
-def dataset_creator(csv_name, n_videos, n_class, directory_path, new_csv_name):
+def dataset_creator(csv_name, n_videos, n_class, directory_path, new_csv_name, cookies=None):
     base_url = "https://www.youtube.com/watch?v="
     root = os.path.dirname(os.path.abspath(__file__))
 
@@ -257,7 +259,7 @@ def dataset_creator(csv_name, n_videos, n_class, directory_path, new_csv_name):
                     }
                     checkpoint_creator(checkpoint_data, checkpoint_path)
 
-                    video_downloaded = download_youtube_video(video_url, start, end, output_path)
+                    video_downloaded = download_youtube_video(video_url, start, end, output_path, cookies=cookies)
 
                     if video_downloaded:
                         csv_path = os.path.join(output_path_base, new_csv_name)
@@ -292,6 +294,9 @@ if __name__ == '__main__':
     parser.add_argument('--num_classes', type=int, help='Number of classes to include in the nano-dataset',
                         required=False)
     parser.add_argument('--videos_per_class', type=int, help='Number of videos to include per class', required=False)
+    
+    parser.add_argument('--cookies', type=str, help='Ruta al archivo de cookies para yt-dlp', required=False)
+
     args = parser.parse_args()
 
     try:
@@ -300,6 +305,7 @@ if __name__ == '__main__':
         video_type = args.video_type
         n_classes = args.num_classes if args.num_classes is not None else 1000
         n_videos = args.videos_per_class if args.videos_per_class is not None else 1000
+        cookies = args.cookies
 
         if directory_path != '' and not os.path.exists(directory_path):
             os.makedirs(directory_path)
@@ -307,7 +313,7 @@ if __name__ == '__main__':
         new_csv_name = f'nano-{video_type}.csv'
 
         directory_csv = os.path.join(dataset_s, video_type + ".csv")
-        dataset_creator(directory_csv, n_videos, n_classes, directory_path, new_csv_name)
+        dataset_creator(directory_csv, n_videos, n_classes, directory_path, new_csv_name, cookies=cookies)
 
     except AttributeError:
         print("Wrong data type.")
