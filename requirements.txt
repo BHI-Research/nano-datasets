@@ -1,4 +1,13 @@
-pytube
-moviepy==1.0.3
+pyyaml
+numpy
+opencv-python
+submitit
+braceexpand
+webdataset
+timm
+decord
 pandas
-yt-dlp
+einops
+beartype
+# visulauzation
+matplotlib
