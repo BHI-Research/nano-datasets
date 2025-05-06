@@ -1,13 +1,4 @@
-pyyaml
-numpy
-opencv-python
-submitit
-braceexpand
-webdataset
-timm
-decord
+pytube
+moviepy
 pandas
-einops
-beartype
-# visulauzation
-matplotlib
+yt-dlp>=2024.04.09
