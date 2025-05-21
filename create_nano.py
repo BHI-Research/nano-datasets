@@ -294,26 +294,36 @@ if __name__ == '__main__':
     parser.add_argument('--num_classes', type=int, help='Number of classes to include in the nano-dataset',
                         required=False)
     parser.add_argument('--videos_per_class', type=int, help='Number of videos to include per class', required=False)
-    
     parser.add_argument('--cookies', type=str, help='Ruta al archivo de cookies para yt-dlp', required=False)
 
     args = parser.parse_args()
 
     try:
         directory_path = args.save_dir
-        dataset_s = args.dataset
-        video_type = args.video_type
-        n_classes = args.num_classes if args.num_classes is not None else 1000
-        n_videos = args.videos_per_class if args.videos_per_class is not None else 1000
-        cookies = args.cookies
+        dataset_s     = args.dataset
+        video_type    = args.video_type
+        n_classes     = args.num_classes       if args.num_classes       is not None else 1000
+        n_videos      = args.videos_per_class  if args.videos_per_class  is not None else 1000
+        cookies       = args.cookies
 
         if directory_path != '' and not os.path.exists(directory_path):
             os.makedirs(directory_path)
 
         new_csv_name = f'nano-{video_type}.csv'
 
-        directory_csv = os.path.join(dataset_s, video_type + ".csv")
-        dataset_creator(directory_csv, n_videos, n_classes, directory_path, new_csv_name, cookies=cookies)
+        # === FIX: resolver ruta del CSV relativa a donde está este script ===
+        import os
+        script_dir    = os.path.dirname(os.path.abspath(__file__))
+        directory_csv = os.path.join(script_dir, dataset_s, f"{video_type}.csv")
+
+        dataset_creator(
+            directory_csv,
+            n_videos,
+            n_classes,
+            directory_path,
+            new_csv_name,
+            cookies=cookies
+        )
 
     except AttributeError:
         print("Wrong data type.")

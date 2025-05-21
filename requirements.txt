@@ -1,4 +1,4 @@
 pytube
-moviepy==1.0.3
+moviepy
 pandas
-yt-dlp
+yt-dlp>=2024.04.09
